@@ -14,7 +14,6 @@ object ReplicationEvolvedMekanismAddon : ForgeReplicationAddon {
     override fun isEnabled(environment: ReplicationAddonEnvironment): Boolean =
         environment.isModLoaded(id)
 
-    @Suppress("UNCHECKED_CAST")
     override fun collectConversions(context: ForgeReplicationAddonContext, collector: IConversionSink) {
         for (recipe in context.recipeManager.recipes) {
             val mapper = EvolvedMekanismRecipeMappers.all.firstOrNull { it.supports(recipe) } ?: continue
