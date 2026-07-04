@@ -1,25 +1,14 @@
 package io.github.masyumero.ri_mekanized.common.adapter.evolved_mekanism
 
-import com.p_nsk.replicated_integration.adapter.mekanism.MekanismNodeResolver
 import com.p_nsk.replicated_integration.adapter.vanilla.BuiltinNodeResolver
 import com.p_nsk.replicated_integration.api.graph.RecipeConversionMapper
-import com.p_nsk.replicated_integration.api.model.InputNodes
-import com.p_nsk.replicated_integration.api.model.NodeAmount
-import com.p_nsk.replicated_integration.api.node.NodeKey
-import com.p_nsk.replicated_integration.core.RecipeMapperGroup
 import fr.iglee42.evolvedmekanism.recipes.AlloyerRecipe
 import fr.iglee42.evolvedmekanism.recipes.ChemixerRecipe
 import fr.iglee42.evolvedmekanism.recipes.SolidificationRecipe
-import mekanism.api.chemical.ChemicalStack
-import mekanism.api.recipes.ingredients.ChemicalStackIngredient
-import mekanism.api.recipes.ingredients.FluidStackIngredient
-import mekanism.api.recipes.ingredients.InputIngredient
-import mekanism.api.recipes.ingredients.ItemStackIngredient
-import net.minecraft.world.item.ItemStack
+import io.github.masyumero.ri_mekanized.common.core.MekanizedRecipeMapperGroup
 import net.minecraft.world.item.crafting.Recipe
-import net.minecraftforge.fluids.FluidStack
 
-object EvolvedMekanismRecipeMappers: RecipeMapperGroup() {
+object EvolvedMekanismRecipeMappers: MekanizedRecipeMapperGroup() {
 
     val all: List<RecipeConversionMapper<Recipe<*>>> =
         listOf(
@@ -56,42 +45,4 @@ object EvolvedMekanismRecipeMappers: RecipeMapperGroup() {
                 )
             }
         )
-
-    private fun ItemStackIngredient.toInputNode(): InputNodes =
-        ingredientToInputNode(
-            ingredient = this as InputIngredient<ItemStack>,
-            nodeOf = BuiltinNodeResolver::itemNode,
-        )
-
-    private fun FluidStackIngredient.toInputNode(): InputNodes =
-        ingredientToInputNode(
-            ingredient = this as InputIngredient<FluidStack>,
-            nodeOf = BuiltinNodeResolver::fluidNode,
-        )
-
-    @Suppress("UNCHECKED_CAST")
-    private fun ChemicalStackIngredient<*, *>.toInputNode(scale: Long = 1L): InputNodes =
-        ingredientToInputNode(
-            ingredient = this as InputIngredient<ChemicalStack<*>>,
-            nodeOf = MekanismNodeResolver::chemicalNode,
-            scale = scale,
-        )
-
-    private fun <T> ingredientToInputNode(
-        ingredient: InputIngredient<T>,
-        nodeOf: (T) -> NodeKey?,
-        scale: Long = 1L,
-    ): InputNodes =
-        ingredient.representations.mapNotNull { representation ->
-            val node = nodeOf(representation) ?: return@mapNotNull null
-            val needed = ingredient.getNeededAmount(representation) * scale
-            if (needed <= 0) {
-                null
-            } else {
-                NodeAmount(node, needed)
-            }
-        }.let(::InputNodes)
-
-    private fun <T> List<T>.singleNodeAmountOrNull(mapper: (T) -> NodeAmount?): NodeAmount? =
-        singleOrNull()?.let(mapper)
 }
