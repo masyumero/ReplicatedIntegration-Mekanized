@@ -6,6 +6,18 @@ jei = "15.20.0.105"
 emi = "1.1.13+1.20.1"
 jade = "5390389" # 11.9.3
 
+replicatedIntegration = "8132966" # 0.2.0
+kotlinForForge = "4.12.0"
+replication = "6137645" # 1.1.3
+titanium = "7949783" # 3.8.34
+
+mekanism = "1.20.1-10.4.16.80"
+evolvedMekanism = "7117024" # 1.2-fix1
+mekanismExtras = "8247562" # 1.5.0
+mekmm = "7884538" # 1.2.1
+
+igreeLib = "6987117" # 1.2.7
+
 [libraries]
 mixinExtras-common      = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixinExtras" }
 
@@ -15,6 +27,17 @@ jei-forge-api           = { module = "mezz.jei:jei-1.20.1-forge-api", version.re
 jei-forge-impl          = { module = "mezz.jei:jei-1.20.1-forge", version.ref = "jei" }
 emi                     = { module = "dev.emi:emi-forge", version.ref = "emi"}
 jade                    = { module = "curse.maven:jade-324717", version.ref = "jade"}
+
+replicatedIntegration   = { module = "curse.maven:replicated-integration-1539319", version.ref = "replicatedIntegration" }
+kotlinForForge          = { module = "thedarkcolour:kotlinforforge", version.ref = "kotlinForForge" }
+replication             = { module = "curse.maven:replication-638351", version.ref = "replication" }
+titanium                = { module = "curse.maven:titanium-287342", version.ref = "titanium" }
+
+mekanism                = { module = "mekanism:Mekanism", version.ref = "mekanism" }
+evolvedMekanism         = { module = "curse.maven:evolved-mekanism-1230085", version.ref = "evolvedMekanism" }
+mekanismExtras          = { module = "curse.maven:mekanism-extras-1026040", version.ref = "mekanismExtras" }
+igreeLib                = { module = "curse.maven:iglee-library-541199", version.ref = "igreeLib" }
+mekmm                   = { module = "curse.maven:mekanism-more-machine-1275257", version.ref = "mekmm" }
 
 [bundles]
 jei = ["jei-common-api", "jei-forge-api", "jei-forge-impl"]

@@ -3,6 +3,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     alias libs.plugins.modDevGradle
+    alias libs.plugins.kotlinGradle
     alias libs.plugins.lombok
 }
 
@@ -27,6 +28,10 @@ repositories {
         // EMI
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/"
+    }
+    maven {
+        name = 'Kotlin for Forge'
+        url = 'https://thedarkcolour.github.io/KotlinForForge/'
     }
 }
 
@@ -109,6 +114,22 @@ dependencies {
     // Mixin
     //annotationProcessor(variantOf(libs.mixin) { classifier("processor") })
     //api(annotationProcessor(forge.mixinExtras.common.get()))
+
+    modImplementation(forge.replicatedIntegration)
+    modImplementation(forge.kotlinForForge)
+    modRuntimeOnly(forge.replication)
+    modRuntimeOnly(forge.titanium)
+
+    modImplementation(forge.mekanism)
+    modImplementation(forge.evolvedMekanism)
+    modRuntimeOnly(forge.igreeLib)
+    modImplementation(forge.mekanismExtras)
+    modImplementation(forge.bundles.jei)
+    modImplementation(forge.mekmm)
+    // If you want to test/use Mekanism & its modules during `runClient` invocation, use the following
+    modRuntimeOnly(variantOf(forge.mekanism) { classifier("additions")})
+    modRuntimeOnly(variantOf(forge.mekanism) { classifier("generators")})
+    modRuntimeOnly(variantOf(forge.mekanism) { classifier("tools")})
 
     // JEI, EMI, Jade
     modCompileOnly(forge.bundles.jei)
